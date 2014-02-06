@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ -z "$1" ]
+then
+	echo "Syntax: lowpri [process name or pid] [process name or pid] ..."
+	echo ""
+	echo "Sets the process's priority to +5"
+	echo
+	exit 2
+fi >&2
+
+while (( $# ))
+do
+	PID="$1"
+	if ! [[ "$PID" =~ ^[0-9]+$ ]]
+	then
+		PID=$(pidof "$PID")
+	fi
+	if [ -z "$PID" ]
+	then
+		echo "Process \"$1\" not found"
+		exit 1
+	fi
+	PRIORITY="+5"
+	renice -n $PRIORITY -p $PID
+	shift
+done >&2
+exit 0

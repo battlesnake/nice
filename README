@@ -1,0 +1,14 @@
+Syntax:
+	critical [process name or pid] [process name or pid] ...
+		Sets the niceness (priority) of the named processes or PIDs to above normal (-5)
+
+	lowpri [process name or pid] [process name or pid] ...
+		Sets the niceness (priority) of the named processes or PIDs to below normal (+5)
+
+
+Requires:
+	bash, core utils (pidof/renice)
+
+Examples:
+	lowpri make gcc g++ cc1plus
+	critical audacity ardour fluidsynth
